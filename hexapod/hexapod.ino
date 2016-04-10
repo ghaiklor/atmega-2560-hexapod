@@ -1,6 +1,4 @@
-#include <Servo.h>
-
-Servo servos[12];
+#include "Leg.h"
 
 // Array of pins that are connected to legs
 int servosPins[12] = {
@@ -27,58 +25,62 @@ int currentRotate = 0;  // rotate mode: -1 = anticlockwise, +1 = clockwise, 0 = 
 int currentSpeed = 0;  // walking speed: in range from -15 to +15
 int currentStride = 0; // size of step: exceeding 400 may cause the legs to hit each other
 
+Leg leg1(28, 29);
+
 void setup() {
-  servos[0].attach(servosPins[0], 800, 2200);
-  delay(40);
-
-  servos[1].attach(servosPins[1], 800, 2200);
-  delay(40);
-
-  servos[2].attach(servosPins[2], 800, 2200);
-  delay(40);
-
-  servos[3].attach(servosPins[3], 800, 2200);
-  delay(40);
-
-  servos[4].attach(servosPins[4], 800, 2200);
-  delay(40);
-
-  servos[5].attach(servosPins[5], 800, 2200);
-  delay(40);
-
-  servos[6].attach(servosPins[6], 800, 2200);
-  delay(40);
-
-  servos[7].attach(servosPins[7], 800, 2200);
-  delay(40);
-
-  servos[8].attach(servosPins[8], 800, 2200);
-  delay(40);
-
-  servos[9].attach(servosPins[9], 800, 2200);
-  delay(40);
-
-  servos[10].attach(servosPins[10], 800, 2200);
-  delay(40);
-
-  servos[11].attach(servosPins[11], 800, 2200);
-  delay(40);
-
-  for (int i = 0; i < 12; i++) {
-    servos[i].writeMicroseconds(initServosValues[i]);
-  }
+  delay(200);
+  leg1.rotateKnee(45);
+  //  servos[0].attach(servosPins[0], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[1].attach(servosPins[1], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[2].attach(servosPins[2], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[3].attach(servosPins[3], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[4].attach(servosPins[4], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[5].attach(servosPins[5], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[6].attach(servosPins[6], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[7].attach(servosPins[7], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[8].attach(servosPins[8], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[9].attach(servosPins[9], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[10].attach(servosPins[10], 800, 2200);
+  //  delay(40);
+  //
+  //  servos[11].attach(servosPins[11], 800, 2200);
+  //  delay(40);
+  //
+  //  for (int i = 0; i < 12; i++) {
+  //    servos[i].writeMicroseconds(initServosValues[i]);
+  //  }
 
   // A little timeout before it starts moving
   delay(3000);
 }
 
 void loop() {
-  if (currentAngle < 0) currentAngle += 360;
-  if (currentAngle > 359) currentAngle -= 360;
-
-  Walk();
-
-  delay(15);
+  //  if (currentAngle < 0) currentAngle += 360;
+  //  if (currentAngle > 359) currentAngle -= 360;
+  //
+  //  Walk();
+  //
+  //  delay(15);
 }
 
 void Walk() {
@@ -112,8 +114,8 @@ void Walk() {
     Knee = sin(A) * currentStride;
     Hip = cos(A) * Xa;
 
-    servos[i * 2].writeMicroseconds(initServosValues[i * 2] + int(Knee)); // update knee  servos 1,3,5
-    servos[i * 2 + 1].writeMicroseconds(initServosValues[i * 2 + 1] + int(Hip)); // update hip servos 1,3,5
+    //    servos[i * 2].writeMicroseconds(initServosValues[i * 2] + int(Knee)); // update knee  servos 1,3,5
+    //    servos[i * 2 + 1].writeMicroseconds(initServosValues[i * 2 + 1] + int(Hip)); // update hip servos 1,3,5
   }
 
   // calculate positions for even numbered legs 2,4,6
@@ -133,8 +135,8 @@ void Walk() {
     Knee = sin(A) * currentStride;
     Hip = cos(A) * Xa;
 
-    servos[i * 2].writeMicroseconds(initServosValues[i * 2] + int(Knee)); // update knee  servos 2,4,6
-    servos[i * 2 + 1].writeMicroseconds(initServosValues[i * 2 + 1] + int(Hip)); // update hip servos 2,4,6
+    //    servos[i * 2].writeMicroseconds(initServosValues[i * 2] + int(Knee)); // update knee  servos 2,4,6
+    //    servos[i * 2 + 1].writeMicroseconds(initServosValues[i * 2 + 1] + int(Hip)); // update hip servos 2,4,6
   }
 
   Step += currentSpeed;
