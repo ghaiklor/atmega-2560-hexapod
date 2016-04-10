@@ -1,22 +1,23 @@
 /*
-   Leg.h - Library for controlling the specific legs in your spider.
-   Created by Eugene Obrezkov aka ghaiklor
+    Leg.cpp - Library for controlling the specific legs in your spider.
+    Created by Eugene Obrezkov aka ghaiklor.
 */
-
 #include "Arduino.h"
 #include "Leg.h"
+
+#define MIN_PULSE_WIDTH 1000
+#define MAX_PULSE_WIDTH 2000
 
 Leg::Leg() {}
 
 void Leg::attach(byte kneePin, byte hipPin) {
-  _kneePin = kneePin;
-  _hipPin = hipPin;
+  _kneeServo.attach(kneePin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+  _hipServo.attach(hipPin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+}
 
-  _kneeServo.attach(_kneePin);
-  _hipServo.attach(_hipPin);
-
-  calibrate(90, 90);
-  reset();
+void Leg::rotate(byte kneeDeg, byte hipDeg) {
+  rotateKnee(kneeDeg);
+  rotateHip(hipDeg);
 }
 
 void Leg::rotateKnee(byte deg) {
@@ -27,29 +28,7 @@ void Leg::rotateHip(byte deg) {
   _hipServo.write(deg);
 }
 
-void Leg::calibrate(byte kneeInitDeg, byte hipInitDeg) {
-  _kneeInitDeg = kneeInitDeg;
-  _hipInitDeg = hipInitDeg;
-}
-
-void Leg::reset() {
-  _kneeServo.write(_kneeInitDeg);
-  _hipServo.write(_hipInitDeg);
-}
-
-void Leg::test() {
-  rotateKnee(0);
-  delay(500);
-
-  rotateKnee(180);
-  delay(500);
-
-  rotateHip(0);
-  delay(500);
-
-  rotateHip(180);
-  delay(500);
-
-  reset();
+void Leg::center() {
+  rotate(90, 90);
 }
 
