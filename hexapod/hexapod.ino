@@ -26,16 +26,15 @@ void setup() {
   legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
 
   for (int i = 0; i < 6; i++) {
-    legs[i].center();
-  }
-}
-
-void loop() {
-  int angle = random(20, 160);
-  for (int i = 0; i < 6; i++) {
+    int angle = random(20, 160);
     legs[i].rotate(angle, angle);
   }
 
   delay(2000);
+  for (int i = 0; i < 6; i++) {
+    legs[i].center();
+  }
 }
+
+void loop() {}
 
