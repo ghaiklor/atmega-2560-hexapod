@@ -1,5 +1,5 @@
 /*
-    Spider.h - Library for controlling the spider.
+    Spider.cpp - Library for controlling the spider.
     Created by Eugene Obrezkov aka ghaiklor.
 */
 #include "Arduino.h"
