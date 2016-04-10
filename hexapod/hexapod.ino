@@ -1,35 +1,36 @@
 #include "Leg.h"
 
-// Array of pins that are connected to legs
-int servosPins[12] = {
-  28, 29, // Knee and Hip 1
-  27, 26, // Knee and Hip 2
-  46, 47, // Knee and Hip 3
-  48, 49, // Knee and Hip 4
-  50, 51, // Knee and Hip 5
-  25, 24  // Knee and Hip 6
-};
+#define KNEE_1_PIN 28
+#define HIP_1_PIN 29
+#define KNEE_2_PIN 27
+#define HIP_2_PIN 26
+#define KNEE_3_PIN 46
+#define HIP_3_PIN 47
+#define KNEE_4_PIN 48
+#define HIP_4_PIN 49
+#define KNEE_5_PIN 50
+#define HIP_5_PIN 51
+#define KNEE_6_PIN 25
+#define HIP_6_PIN 24
 
-// Start values for legs (initial values)
-int initServosValues[12] = {
-  1500, 1550,  // Start value for leg 1
-  1550, 1450,  // Start value for leg 2
-  1500, 1400,  // Start value for leg 3
-  1500, 1550,  // Start value for leg 4
-  1500, 1500,  // Start value for leg 5
-  1500, 1400   // Start value for leg 6
-};
+Leg legs[6];
 
 int currentAngle = 0; // determines the direction/angle that the robot will walk in
 int currentRotate = 0;  // rotate mode: -1 = anticlockwise, +1 = clockwise, 0 = no rotation
 int currentSpeed = 0;  // walking speed: in range from -15 to +15
 int currentStride = 0; // size of step: exceeding 400 may cause the legs to hit each other
 
-Leg leg1(28, 29);
-
 void setup() {
-  delay(200);
-  leg1.rotateKnee(45);
+  legs[0].attach(KNEE_1_PIN, HIP_1_PIN);
+  legs[1].attach(KNEE_2_PIN, HIP_2_PIN);
+  legs[2].attach(KNEE_3_PIN, HIP_3_PIN);
+  legs[3].attach(KNEE_4_PIN, HIP_4_PIN);
+  legs[4].attach(KNEE_5_PIN, HIP_5_PIN);
+  legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
+
+  for (int i = 0; i < 6; i++) {
+    legs[i].test();
+  }
   //  servos[0].attach(servosPins[0], 800, 2200);
   //  delay(40);
   //

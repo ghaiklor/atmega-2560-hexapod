@@ -10,16 +10,20 @@
 
 class Leg {
   public:
-    Leg(int kneePin, int hipPin);
-    void writeToKnee(int microseconds);
-    void writeToHip(int microseconds);
-    void rotateKnee(int deg);
-    void rotateHip(int deg);
+    Leg();
+    void attach(byte kneePin, byte hipPin);
+    void rotateKnee(byte deg);
+    void rotateHip(byte deg);
+    void calibrate(byte kneeInitDeg, byte hipInitDeg);
+    void reset();
+    void test();
   private:
-    Servo _knee;
-    Servo _hip;
-    int _kneePin;
-    int _hipPin;
+    byte _kneePin;
+    byte _hipPin;
+    byte _kneeInitDeg;
+    byte _hipInitDeg;
+    Servo _kneeServo;
+    Servo _hipServo;
 };
 
 #endif

@@ -6,33 +6,50 @@
 #include "Arduino.h"
 #include "Leg.h"
 
-Leg::Leg(int kneePin, int hipPin) {
+Leg::Leg() {}
+
+void Leg::attach(byte kneePin, byte hipPin) {
   _kneePin = kneePin;
   _hipPin = hipPin;
 
-  _knee.attach(_kneePin, 800, 2200);
-  delay(40);
+  _kneeServo.attach(_kneePin);
+  _hipServo.attach(_hipPin);
 
-  _hip.attach(_hipPin, 800, 2200);
-  delay(40);
-
-  this->writeToKnee(1500);
-  this->writeToHip(1500);
+  calibrate(90, 90);
+  reset();
 }
 
-void Leg::writeToKnee(int microseconds) {
-  _knee.writeMicroseconds(microseconds);
+void Leg::rotateKnee(byte deg) {
+  _kneeServo.write(deg);
 }
 
-void Leg::writeToHip(int microseconds) {
-  _hip.writeMicroseconds(microseconds);
+void Leg::rotateHip(byte deg) {
+  _hipServo.write(deg);
 }
 
-void Leg::rotateKnee(int deg) {
-  _knee.write(deg);
+void Leg::calibrate(byte kneeInitDeg, byte hipInitDeg) {
+  _kneeInitDeg = kneeInitDeg;
+  _hipInitDeg = hipInitDeg;
 }
 
-void Leg::rotateHip(int deg) {
-  _hip.write(deg);
+void Leg::reset() {
+  _kneeServo.write(_kneeInitDeg);
+  _hipServo.write(_hipInitDeg);
+}
+
+void Leg::test() {
+  rotateKnee(0);
+  delay(500);
+
+  rotateKnee(180);
+  delay(500);
+
+  rotateHip(0);
+  delay(500);
+
+  rotateHip(180);
+  delay(500);
+
+  reset();
 }
 
