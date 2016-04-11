@@ -6,23 +6,21 @@ int PINS[6][2] = {{28, 29}, {27, 26}, {46, 47}, {48, 49}, {50, 51}, {25, 24}};
 Spider spider;
 SimpleTimer timer;
 
-void walkSpider() {
+void walk() {
   spider.walk();
 }
 
-void randomParams() {
-  spider.setSpeed(random(5, 10));
-  spider.setAngle(random(0, 45));
-}
-
 void setup() {
-  randomSeed(analogRead(A0));
   spider.attach(PINS);
-  spider.setSpeed(10);
-  timer.setInterval(20, walkSpider);
-  timer.setInterval(10000, randomParams);
+  spider.setSpeed(15);
+  timer.setInterval(20, walk);
 }
 
 void loop() {
+  static int angle = 0;
+
+  angle++;
+  if (angle > 359) angle = 0;
+
   timer.run();
 }

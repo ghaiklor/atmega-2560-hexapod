@@ -6,7 +6,7 @@ int Spider::getAngle() {
 
 void Spider::setAngle(int angle) {
   if (angle < 0) angle = 0;
-  if (angle > 360) angle -= 360;
+  if (angle > 359) angle -= 360;
 
   _angle = int(angle);
 }
@@ -16,7 +16,6 @@ byte Spider::getRotate() {
 }
 
 void Spider::setRotate(byte rotate) {
-  rotate = 0;
   if (rotate > 0) rotate = 1;
   if (rotate < 0) rotate = -1;
 
@@ -51,9 +50,10 @@ void Spider::calibrate() {
 }
 
 void Spider::walk() {
-  float A;
-  double Xa, Knee, Hip;
-  static int Step;
+  static int step = 0;
+
+  float a;
+  double xa, knee, hip;
 
   if (_speed == 0) {
     _stride -= 25;
@@ -64,25 +64,23 @@ void Spider::walk() {
   }
 
   for (int i = 0; i < 6; i++) {
-    A = float(60 * i + _angle);
-    if (A > 359) A -= 360;
+    a = float(60 * i + _angle);
+    if (a > 359) a -= 360;
 
-    A = A * PI / 180;
-    Xa = _stride * _rotate;
-    if (_rotate == 0) {
-      Xa = sin(A) * -_stride;
-    }
+    a = a * PI / 180;
+    xa = _stride * _rotate;
+    if (_rotate == 0) xa = sin(a) * -_stride;
 
-    A = i % 2 == 0 ? float(Step) : float(Step + 180);
-    if (A > 359) A -= 360;
-    A = A * PI / 180;
-    Knee = sin(A) * _stride;
-    Hip = cos(A) * Xa;
+    a = i % 2 == 0 ? float(step) : float(step + 180);
+    if (a > 359) a -= 360;
+    a = a * PI / 180;
+    knee = sin(a) * _stride;
+    hip = cos(a) * xa;
 
-    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
+    _legs[i].rotate(map(1500 + int(knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
   }
 
-  Step += _speed;
-  if (Step > 359) Step -= 360;
-  if (Step < 0) Step += 360;
+  step += _speed;
+  if (step > 359) step -= 360;
+  if (step < 0) step += 360;
 }
