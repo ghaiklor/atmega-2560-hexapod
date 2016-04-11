@@ -6,10 +6,16 @@ void Leg::attach(byte kneePin, byte hipPin) {
 }
 
 void Leg::rotateKnee(byte deg) {
+  if (deg < 0) deg = 0;
+  if (deg > 180) deg = 180;
+
   _kneeServo.write(deg);
 }
 
 void Leg::rotateHip(byte deg) {
+  if (deg < 0) deg = 0;
+  if (deg > 180) deg = 180;
+
   _hipServo.write(deg);
 }
 
