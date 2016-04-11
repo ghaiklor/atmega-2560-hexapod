@@ -5,6 +5,9 @@ int Spider::getAngle() {
 }
 
 void Spider::setAngle(int angle) {
+  if (angle < 0) angle = 0;
+  if (angle > 360) angle = 360;
+
   _angle = int(angle);
 }
 
@@ -13,6 +16,10 @@ byte Spider::getRotate() {
 }
 
 void Spider::setRotate(byte rotate) {
+  rotate = 0;
+  if (rotate > 0) rotate = 1;
+  if (rotate < 0) rotate = -1;
+
   _rotate = byte(rotate);
 }
 
@@ -21,6 +28,9 @@ byte Spider::getSpeed() {
 }
 
 void Spider::setSpeed(byte speed) {
+  if (speed < -15) speed = -15;
+  if (speed > 15) speed = 15;
+
   _speed = byte(speed);
 }
 
