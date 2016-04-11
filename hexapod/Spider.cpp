@@ -1,18 +1,4 @@
-#include "Arduino.h"
 #include "Spider.h"
-
-#define KNEE_1_PIN 28
-#define HIP_1_PIN 29
-#define KNEE_2_PIN 27
-#define HIP_2_PIN 26
-#define KNEE_3_PIN 46
-#define HIP_3_PIN 47
-#define KNEE_4_PIN 48
-#define HIP_4_PIN 49
-#define KNEE_5_PIN 50
-#define HIP_5_PIN 51
-#define KNEE_6_PIN 25
-#define HIP_6_PIN 24
 
 void Spider::attach() {
   _legs[0].attach(KNEE_1_PIN, HIP_1_PIN);
@@ -52,26 +38,7 @@ void Spider::walk() {
     if (_stride > 450) _stride = 450;
   }
 
-  for (int i = 0; i < 6; i += 2) {
-    A = float(60 * i + _angle);
-    if (A > 359) A -= 360;
-
-    A = A * PI / 180;
-
-    Xa = _stride * _rotate;
-    if (_rotate == 0) {
-      Xa = sin(A) * -_stride;
-    }
-
-    A = float(Step);
-    A = A * PI / 180;
-    Knee = sin(A) * _stride;
-    Hip = cos(A) * Xa;
-
-    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
-  }
-
-  for (int i = 1; i < 6; i += 2) {
+  for (int i = 0; i < 6; i++) {
     A = float(60 * i + _angle);
     if (A > 359) A -= 360;
 
@@ -81,26 +48,16 @@ void Spider::walk() {
       Xa = sin(A) * -_stride;
     }
 
-    A = float(Step + 180);
+    A = i % 2 == 0 ? float(Step) : float(Step + 180);
     if (A > 359) A -= 360;
     A = A * PI / 180;
     Knee = sin(A) * _stride;
     Hip = cos(A) * Xa;
 
-    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
-
+    _legs[i].rotate(map(1500 + int(Knee), SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH, 0, 180));
   }
 
   Step += _speed;
   if (Step > 359) Step -= 360;
   if (Step < 0) Step += 360;
-}
-
-void Spider::checkLegs() {
-  for (int i = 0; i < 6; i++) _legs[i].rotate(0, 0);
-  delay(1000);
-  for (int i = 0; i < 6; i++) _legs[i].rotate(180, 180);
-  delay(1000);
-  for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
-  delay(1000);
 }

@@ -1,11 +1,11 @@
 #ifndef _Leg_h_
 #define _Leg_h_
 
-#define MIN_PULSE_WIDTH 1200
-#define MAX_PULSE_WIDTH 1800
-
 #include "Arduino.h"
 #include "Servo.h"
+
+#define SERVO_MIN_PULSE_WIDTH 1000
+#define SERVO_MAX_PULSE_WIDTH 2000
 
 class Leg {
   private:
