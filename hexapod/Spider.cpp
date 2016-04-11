@@ -6,7 +6,7 @@ int Spider::getAngle() {
 
 void Spider::setAngle(int angle) {
   if (angle < 0) angle = 0;
-  if (angle > 360) angle = 360;
+  if (angle > 360) angle -= 360;
 
   _angle = int(angle);
 }
@@ -54,9 +54,6 @@ void Spider::walk() {
   float A;
   double Xa, Knee, Hip;
   static int Step;
-
-  if (_angle < 0) _angle = 0;
-  if (_angle > 360) _angle = 360;
 
   if (_speed == 0) {
     _stride -= 25;
