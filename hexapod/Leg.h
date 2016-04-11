@@ -1,6 +1,9 @@
 #ifndef _Leg_h_
 #define _Leg_h_
 
+#define MIN_PULSE_WIDTH 1200
+#define MAX_PULSE_WIDTH 1800
+
 #include "Arduino.h"
 #include "Servo.h"
 

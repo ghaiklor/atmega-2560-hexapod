@@ -13,6 +13,7 @@ class Spider {
     Leg _legs[6];
   public:
     void attach();
+    void calibrate();
     void forward();
     void backward();
     void stop();

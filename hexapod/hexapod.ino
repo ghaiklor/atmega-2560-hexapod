@@ -8,6 +8,13 @@ void setup() {
 }
 
 void loop() {
-//  spider.walk();
-  delay(20);
+  static int end = millis() + 5000;
+
+  if (millis() < end) {
+    spider.walk();
+    delay(20);
+  } else {
+    spider.stop();
+    spider.calibrate();
+  }
 }

@@ -23,12 +23,16 @@ void Spider::attach() {
   _legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
 }
 
+void Spider::calibrate() {
+  for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
+}
+
 void Spider::forward() {
-  _speed = 2;
+  _speed = 10;
 }
 
 void Spider::backward() {
-  _speed = -2;
+  _speed = -10;
 }
 
 void Spider::stop() {
@@ -64,7 +68,7 @@ void Spider::walk() {
     Knee = sin(A) * _stride;
     Hip = cos(A) * Xa;
 
-    _legs[i].rotate(map(1500 + int(Knee), 1000, 2000, 0, 180), map(1500 + int(Hip), 1000, 2000, 0, 180));
+    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
   }
 
   for (int i = 1; i < 6; i += 2) {
@@ -83,7 +87,7 @@ void Spider::walk() {
     Knee = sin(A) * _stride;
     Hip = cos(A) * Xa;
 
-    _legs[i].rotate(map(1500 + int(Knee), 1000, 2000, 0, 180), map(1500 + int(Hip), 1000, 2000, 0, 180));
+    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
 
   }
 
