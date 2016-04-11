@@ -21,10 +21,10 @@ void updateAngle() {
 void setup() {
   spider.attach(PINS);
   spider.setSpeed(15);
+  delay(3000);
+
   timer.setInterval(15, walk);
   timer.setInterval(15, updateAngle);
-
-  delay(3000);
 }
 
 void loop() {
