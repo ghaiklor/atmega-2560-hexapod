@@ -29,16 +29,15 @@ Leg Spider::getLeg(byte index) {
 }
 
 void Spider::attach(int pins[6][2]) {
-  _legs[0].attach(pins[0][0], pins[0][1]);
-  _legs[1].attach(pins[1][0], pins[1][1]);
-  _legs[2].attach(pins[2][0], pins[2][1]);
-  _legs[3].attach(pins[3][0], pins[3][1]);
-  _legs[4].attach(pins[4][0], pins[4][1]);
-  _legs[5].attach(pins[5][0], pins[5][1]);
+  for (int i = 0; i < 6; i++) {
+    _legs[i].attach(pins[i][0], pins[i][1]);
+  }
 }
 
 void Spider::calibrate() {
-  for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
+  for (int i = 0; i < 6; i++) {
+    _legs[i].rotate(90, 90);
+  }
 }
 
 void Spider::walk() {
