@@ -23,6 +23,8 @@ void setup() {
   spider.setSpeed(15);
   timer.setInterval(15, walk);
   timer.setInterval(15, updateAngle);
+
+  delay(3000);
 }
 
 void loop() {
