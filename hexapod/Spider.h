@@ -1,7 +1,3 @@
-/*
-    Spider.h - Library for controlling the spider.
-    Created by Eugene Obrezkov aka ghaiklor.
-*/
 #ifndef _Spider_h_
 #define _Spider_h_
 
@@ -9,13 +5,22 @@
 #include "Leg.h"
 
 class Spider {
+  private:
+    int _angle;
+    int _rotate;
+    int _speed;
+    int _stride;
+    Leg _legs[6];
   public:
     Spider();
-    void layDown();
-    void layUp();
-  private:
-    Leg _legs[6];
+    void attach();
+    void checkLegs();
+    void stop();
+    void forward();
+    void backward();
+    void clockwise();
+    void counterClockwise();
+    void rotate(int angle);
 };
 
 #endif
-

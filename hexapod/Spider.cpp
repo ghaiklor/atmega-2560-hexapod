@@ -1,7 +1,3 @@
-/*
-    Spider.cpp - Library for controlling the spider.
-    Created by Eugene Obrezkov aka ghaiklor.
-*/
 #include "Arduino.h"
 #include "Spider.h"
 
@@ -18,7 +14,9 @@
 #define KNEE_6_PIN 25
 #define HIP_6_PIN 24
 
-Spider::Spider() {
+Spider::Spider() {}
+
+void Spider::attach() {
   _legs[0].attach(KNEE_1_PIN, HIP_1_PIN);
   _legs[1].attach(KNEE_2_PIN, HIP_2_PIN);
   _legs[2].attach(KNEE_3_PIN, HIP_3_PIN);
@@ -27,14 +25,47 @@ Spider::Spider() {
   _legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
 }
 
-void Spider::layDown() {
-  for (int i = 0; i < 6; i++) {
-    _legs[i].rotate(0, 90);
-  }
+void Spider::checkLegs() {
+  for (int i = 0; i < 6; i++) _legs[i].rotate(0, 0);
+  delay(1000);
+  for (int i = 0; i < 6; i++) _legs[i].rotate(180, 180);
+  delay(1000);
+  for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
+  delay(1000);
 }
 
-void Spider::layUp() {
-  for (int i = 0; i < 6; i++) {
-    _legs[i].rotate(90, 90);
-  }
+void Spider::stop() {
+  _speed = 0;
+  _angle = 0;
+  _rotate = 0;
+}
+
+void Spider::forward() {
+  _speed = 10;
+  _angle = 0;
+  _rotate = 0;
+}
+
+void Spider::backward() {
+  _speed = -10;
+  _angle = 0;
+  _rotate = 0;
+}
+
+void Spider::clockwise() {
+  _speed = 10;
+  _rotate = 1;
+  _angle = 0;
+}
+
+void Spider::counterClockwise() {
+  _speed = 10;
+  _rotate = -1;
+  _angle = 0;
+}
+
+void Spider::rotate(int angle) {
+  _speed = 10;
+  _rotate = 0;
+  _angle = angle;
 }

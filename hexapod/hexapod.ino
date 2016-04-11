@@ -1,11 +1,10 @@
 #include "Spider.h"
 
+Spider spider;
+
 void setup() {
-  Spider spider;
-  spider.layDown();
-  delay(2000);
-  spider.layUp();
+  spider.attach();
+  spider.checkLegs();
 }
 
 void loop() {}
-
