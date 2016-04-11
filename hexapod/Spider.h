@@ -6,21 +6,18 @@
 
 class Spider {
   private:
-    int _angle;
-    int _rotate;
-    int _speed;
-    int _stride;
+    int _angle = 0;
+    int _rotate = 0;
+    int _speed = 0;
+    int _stride = 0;
     Leg _legs[6];
   public:
-    Spider();
     void attach();
-    void checkLegs();
-    void stop();
     void forward();
     void backward();
-    void clockwise();
-    void counterClockwise();
-    void rotate(int angle);
+    void stop();
+    void walk();
+    void checkLegs();
 };
 
 #endif

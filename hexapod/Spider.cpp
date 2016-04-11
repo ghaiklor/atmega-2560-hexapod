@@ -14,8 +14,6 @@
 #define KNEE_6_PIN 25
 #define HIP_6_PIN 24
 
-Spider::Spider() {}
-
 void Spider::attach() {
   _legs[0].attach(KNEE_1_PIN, HIP_1_PIN);
   _legs[1].attach(KNEE_2_PIN, HIP_2_PIN);
@@ -25,6 +23,75 @@ void Spider::attach() {
   _legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
 }
 
+void Spider::forward() {
+  _speed = 2;
+}
+
+void Spider::backward() {
+  _speed = -2;
+}
+
+void Spider::stop() {
+  _speed = 0;
+}
+
+void Spider::walk() {
+  float A;
+  double Xa, Knee, Hip;
+  static int Step;
+
+  if (_speed == 0) {
+    _stride -= 25;
+    if (_stride < 0) _stride = 0;
+  } else {
+    _stride += 25;
+    if (_stride > 450) _stride = 450;
+  }
+
+  for (int i = 0; i < 6; i += 2) {
+    A = float(60 * i + _angle);
+    if (A > 359) A -= 360;
+
+    A = A * PI / 180;
+
+    Xa = _stride * _rotate;
+    if (_rotate == 0) {
+      Xa = sin(A) * -_stride;
+    }
+
+    A = float(Step);
+    A = A * PI / 180;
+    Knee = sin(A) * _stride;
+    Hip = cos(A) * Xa;
+
+    _legs[i].rotate(map(1500 + int(Knee), 1000, 2000, 0, 180), map(1500 + int(Hip), 1000, 2000, 0, 180));
+  }
+
+  for (int i = 1; i < 6; i += 2) {
+    A = float(60 * i + _angle);
+    if (A > 359) A -= 360;
+
+    A = A * PI / 180;
+    Xa = _stride * _rotate;
+    if (_rotate == 0) {
+      Xa = sin(A) * -_stride;
+    }
+
+    A = float(Step + 180);
+    if (A > 359) A -= 360;
+    A = A * PI / 180;
+    Knee = sin(A) * _stride;
+    Hip = cos(A) * Xa;
+
+    _legs[i].rotate(map(1500 + int(Knee), 1000, 2000, 0, 180), map(1500 + int(Hip), 1000, 2000, 0, 180));
+
+  }
+
+  Step += _speed;
+  if (Step > 359) Step -= 360;
+  if (Step < 0) Step += 360;
+}
+
 void Spider::checkLegs() {
   for (int i = 0; i < 6; i++) _legs[i].rotate(0, 0);
   delay(1000);
@@ -32,40 +99,4 @@ void Spider::checkLegs() {
   delay(1000);
   for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
   delay(1000);
-}
-
-void Spider::stop() {
-  _speed = 0;
-  _angle = 0;
-  _rotate = 0;
-}
-
-void Spider::forward() {
-  _speed = 10;
-  _angle = 0;
-  _rotate = 0;
-}
-
-void Spider::backward() {
-  _speed = -10;
-  _angle = 0;
-  _rotate = 0;
-}
-
-void Spider::clockwise() {
-  _speed = 10;
-  _rotate = 1;
-  _angle = 0;
-}
-
-void Spider::counterClockwise() {
-  _speed = 10;
-  _rotate = -1;
-  _angle = 0;
-}
-
-void Spider::rotate(int angle) {
-  _speed = 10;
-  _rotate = 0;
-  _angle = angle;
 }

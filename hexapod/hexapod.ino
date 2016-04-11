@@ -4,7 +4,10 @@ Spider spider;
 
 void setup() {
   spider.attach();
-  spider.checkLegs();
+  spider.forward();
 }
 
-void loop() {}
+void loop() {
+//  spider.walk();
+  delay(20);
+}
