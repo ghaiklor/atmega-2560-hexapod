@@ -1,34 +1,53 @@
 #include "Spider.h"
 
-void Spider::attach() {
-  _legs[0].attach(KNEE_1_PIN, HIP_1_PIN);
-  _legs[1].attach(KNEE_2_PIN, HIP_2_PIN);
-  _legs[2].attach(KNEE_3_PIN, HIP_3_PIN);
-  _legs[3].attach(KNEE_4_PIN, HIP_4_PIN);
-  _legs[4].attach(KNEE_5_PIN, HIP_5_PIN);
-  _legs[5].attach(KNEE_6_PIN, HIP_6_PIN);
+int Spider::getAngle() {
+  return int(_angle);
+}
+
+void Spider::setAngle(int angle) {
+  _angle = int(angle);
+}
+
+byte Spider::getRotate() {
+  return byte(_rotate);
+}
+
+void Spider::setRotate(byte rotate) {
+  _rotate = byte(rotate);
+}
+
+byte Spider::getSpeed() {
+  return byte(_speed);
+}
+
+void Spider::setSpeed(byte speed) {
+  _speed = byte(speed);
+}
+
+Leg Spider::getLeg(byte index) {
+  return Leg(_legs[index]);
+}
+
+void Spider::attach(int pins[6][2]) {
+  _legs[0].attach(pins[0][0], pins[0][1]);
+  _legs[1].attach(pins[1][0], pins[1][1]);
+  _legs[2].attach(pins[2][0], pins[2][1]);
+  _legs[3].attach(pins[3][0], pins[3][1]);
+  _legs[4].attach(pins[4][0], pins[4][1]);
+  _legs[5].attach(pins[5][0], pins[5][1]);
 }
 
 void Spider::calibrate() {
   for (int i = 0; i < 6; i++) _legs[i].rotate(90, 90);
 }
 
-void Spider::forward() {
-  _speed = 10;
-}
-
-void Spider::backward() {
-  _speed = -10;
-}
-
-void Spider::stop() {
-  _speed = 0;
-}
-
 void Spider::walk() {
   float A;
   double Xa, Knee, Hip;
   static int Step;
+
+  if (_angle < 0) _angle = 0;
+  if (_angle > 360) _angle = 360;
 
   if (_speed == 0) {
     _stride -= 25;
