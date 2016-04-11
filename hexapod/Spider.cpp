@@ -54,7 +54,7 @@ void Spider::walk() {
     Knee = sin(A) * _stride;
     Hip = cos(A) * Xa;
 
-    _legs[i].rotate(map(1500 + int(Knee), SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH, 0, 180));
+    _legs[i].rotate(map(1500 + int(Knee), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180), map(1500 + int(Hip), MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, 0, 180));
   }
 
   Step += _speed;

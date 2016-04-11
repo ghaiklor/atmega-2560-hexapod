@@ -1,8 +1,8 @@
 #include "Leg.h"
 
 void Leg::attach(byte kneePin, byte hipPin) {
-  _kneeServo.attach(kneePin, SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH);
-  _hipServo.attach(hipPin, SERVO_MIN_PULSE_WIDTH, SERVO_MAX_PULSE_WIDTH);
+  _kneeServo.attach(kneePin);
+  _hipServo.attach(hipPin);
 }
 
 void Leg::rotateKnee(byte deg) {
