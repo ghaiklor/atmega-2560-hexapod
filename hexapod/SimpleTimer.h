@@ -6,20 +6,6 @@
 typedef void (*timer_callback)(void);
 
 class SimpleTimer {
-  private:
-    const static int DEFCALL_DONTRUN = 0;
-    const static int DEFCALL_RUNONLY = 1;
-    const static int DEFCALL_RUNANDDEL = 2;
-
-    int findFirstFreeSlot();
-    unsigned long prev_millis[MAX_TIMERS];
-    timer_callback callbacks[MAX_TIMERS];
-    long delays[MAX_TIMERS];
-    int maxNumRuns[MAX_TIMERS];
-    int numRuns[MAX_TIMERS];
-    boolean enabled[MAX_TIMERS];
-    int toBeCalled[MAX_TIMERS];
-    int numTimers;
   public:
     const static int MAX_TIMERS = 10;
     const static int RUN_FOREVER = 0;
@@ -40,6 +26,21 @@ class SimpleTimer {
     int getNumAvailableTimers() {
       return MAX_TIMERS - numTimers;
     };
+
+  private:
+    const static int DEFCALL_DONTRUN = 0;
+    const static int DEFCALL_RUNONLY = 1;
+    const static int DEFCALL_RUNANDDEL = 2;
+
+    int findFirstFreeSlot();
+    unsigned long prev_millis[MAX_TIMERS];
+    timer_callback callbacks[MAX_TIMERS];
+    long delays[MAX_TIMERS];
+    int maxNumRuns[MAX_TIMERS];
+    int numRuns[MAX_TIMERS];
+    boolean enabled[MAX_TIMERS];
+    int toBeCalled[MAX_TIMERS];
+    int numTimers;
 };
 
 #endif

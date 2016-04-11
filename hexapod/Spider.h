@@ -11,6 +11,7 @@ class Spider {
     byte _speed = 0;
     int _stride = 0;
     Leg _legs[6];
+
   public:
     int getAngle();
     void setAngle(int angle);
@@ -19,7 +20,6 @@ class Spider {
     byte getSpeed();
     void setSpeed(byte speed);
     Leg getLeg(byte index);
-
     void attach(int pins[6][2]);
     void calibrate();
     void walk();

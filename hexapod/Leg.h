@@ -8,6 +8,7 @@ class Leg {
   private:
     Servo _kneeServo;
     Servo _hipServo;
+
   public:
     void attach(byte kneePin, byte hipPin);
     void rotateKnee(byte deg);
