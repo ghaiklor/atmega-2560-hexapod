@@ -41,6 +41,8 @@ void Spider::attach(int pins[6][2]) {
   for (int i = 0; i < 6; i++) {
     _legs[i].attach(pins[i][0], pins[i][1]);
   }
+
+  calibrate();
 }
 
 void Spider::calibrate() {
