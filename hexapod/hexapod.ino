@@ -10,17 +10,21 @@ void walk() {
   spider.walk();
 }
 
-void setup() {
-  spider.attach(PINS);
-  spider.setSpeed(15);
-  timer.setInterval(20, walk);
-}
-
-void loop() {
+void updateAngle() {
   static int angle = 0;
 
   angle++;
   if (angle > 359) angle = 0;
+  spider.setAngle(angle);
+}
 
+void setup() {
+  spider.attach(PINS);
+  spider.setSpeed(15);
+  timer.setInterval(15, walk);
+  timer.setInterval(15, updateAngle);
+}
+
+void loop() {
   timer.run();
 }
